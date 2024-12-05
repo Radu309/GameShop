@@ -13,6 +13,9 @@ public class Game
     public decimal Price { get; set; }
     [Required]
     public int Stock { get; set; }
+    
+    public int OrderId { get; set; }
+    public OrderItem OrderItem { get; set; }
 
     public ICollection<Image> Images { get; set; } = new List<Image>();
 
