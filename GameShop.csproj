@@ -4,6 +4,13 @@
         <TargetFramework>net8.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+	<AssemblyTitle>GameShop</AssemblyTitle>
+	<AssemblyCompany>GameShop</AssemblyCompany>
+	<AssemblyProduct>GameShop</AssemblyProduct>
+	<AssemblyVersion>1.0.0.0</AssemblyVersion>
+	<FileVersion>1.0.0.0</FileVersion>
+	<InformationalVersion>1.0.0+01550c5f93dfb9193ae9cacc92d42f347cebec78</InformationalVersion>
+	<Configuration>Debug</Configuration>
     </PropertyGroup>
 
     <ItemGroup>

@@ -8,7 +8,7 @@ public class Order
 
     // Relație - O comandă este făcută de un client
     public int ClientId { get; set; }
-    public Client Client { get; set; }
+    public Client? Client { get; set; }
 
     // Relație - O comandă poate conține mai multe produse
     public ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();

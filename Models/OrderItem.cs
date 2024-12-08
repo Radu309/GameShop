@@ -8,9 +8,9 @@ public class OrderItem
 
     // Relație - Un OrderItem este asociat unui produs
     public int GameId { get; set; }
-    public Game Game { get; set; }
+    public Game? Game { get; set; }
 
     // Relație - Un OrderItem este asociat unei comenzi
     public int OrderId { get; set; }
-    public Order Order { get; set; }
+    public Order? Order { get; set; }
 }
