@@ -1,4 +1,6 @@
-﻿namespace GameShop.Models;
+﻿using System.Text.Json.Serialization;
+
+namespace GameShop.Models;
 
 public class Image
 {
@@ -7,6 +9,7 @@ public class Image
     public string? FileName { get; set; }  
 
     // Relație
+    [JsonIgnore] // Ignoră referința inversă
     public Game? Game { get; set; }
     public int GameId { get; set; }  // ID-ul produsului asociat
 

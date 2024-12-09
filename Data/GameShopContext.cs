@@ -8,7 +8,7 @@ public class GameShopContext : DbContext
     public GameShopContext(DbContextOptions<GameShopContext> options) : base(options) { }
 
     public DbSet<Game> Games { get; set; }
-    public DbSet<Client> Clients { get; set; }
+    public DbSet<AppUser> AppUsers { get; set; }
     public DbSet<Order> Orders { get; set; }
     public DbSet<OrderItem> OrderItems { get; set; }
     public DbSet<Image> Images { get; set; }
@@ -35,15 +35,15 @@ public class GameShopContext : DbContext
             .OnDelete(DeleteBehavior.Cascade);
 
         modelBuilder.Entity<Review>()
-            .HasOne(r => r.Client)
+            .HasOne(r => r.AppUser)
             .WithMany(c => c.Reviews)
-            .HasForeignKey(r => r.ClientId)
+            .HasForeignKey(r => r.AppUserId)
             .OnDelete(DeleteBehavior.Cascade);
 
         modelBuilder.Entity<Order>()
-            .HasOne(o => o.Client)
+            .HasOne(o => o.AppUser)
             .WithMany(c => c.Orders)
-            .HasForeignKey(o => o.ClientId)
+            .HasForeignKey(o => o.AppUserId)
             .OnDelete(DeleteBehavior.Cascade);
 
         modelBuilder.Entity<Image>()

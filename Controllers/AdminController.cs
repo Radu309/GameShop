@@ -2,7 +2,7 @@
 
 namespace GameShop.Controllers;
 
-public class HomeController : Controller
+public class AdminController : Controller
 {
     // GET
     public IActionResult Index()

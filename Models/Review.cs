@@ -1,4 +1,6 @@
-﻿namespace GameShop.Models;
+﻿using System.Text.Json.Serialization;
+
+namespace GameShop.Models;
 
 public class Review
 {
@@ -7,11 +9,10 @@ public class Review
     public string? Comment { get; set; }
     public DateTime ReviewDate { get; set; }
 
-    // Relație - O recenzie este asociată unui produs
     public int GameId { get; set; }
+    [JsonIgnore] 
     public Game? Game { get; set; }
-
-    // Relație - O recenzie este făcută de un client
-    public int ClientId { get; set; }
-    public Client? Client { get; set; }
+    public int AppUserId { get; set; }
+    [JsonIgnore] 
+    public AppUser? AppUser { get; set; }
 }
