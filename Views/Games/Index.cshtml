@@ -1,0 +1,52 @@
+@* @model IEnumerable<GameShop.Models.Game> *@
+@* @using Microsoft.AspNetCore.Mvc.TagHelpers *@
+@model IEnumerable<GameShop.Models.DTO.GameDTO>
+
+@{
+    ViewBag.Title = "Games List";
+}
+<section id="Games">
+    <div class="games-body">
+        <div class="games-container">
+            <h1>Games List</h1>
+            <ul class="list">
+                @foreach (var game in Model)
+                {
+                    <li class="list-item">
+                        <div class="game-info">
+                            <!-- Titluri deasupra atributelor -->
+                            <div class="game-attribute">
+                                <h3>@game.Name</h3>
+                                @if (game.Images != null && game.Images.Any())
+                                {
+                                    <img src="@game.Images[0].Base64Data" alt="@game.Name thumbnail" class="game-image" />
+                                }
+                                else
+                                {
+                                    <p>No image available</p>
+                                }
+                            </div>
+
+                            <div class="game-attribute">
+                                <h3>Price</h3>
+                                <p>@game.Price.ToString("C2")</p> <!-- Format price as currency -->
+                            </div>
+
+                            <div class="game-attribute">
+                                <h3>Stock</h3>
+                                <p>@game.Stock</p>
+                            </div>
+
+                            <div class="game-attribute">
+                                <button>Buy</button>
+                            </div>
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</section>
+
+<link rel="stylesheet" href="~/css/GameIndex.css" asp-append-version="true"/>
+

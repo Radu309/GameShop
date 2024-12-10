@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using GameShop.Data;
+using GameShop.Models;
 using GameShop.Services;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 // connexion to postgresql
@@ -11,8 +13,12 @@ builder.Services.AddDbContext<GameShopContext>(options =>
 builder.Services.AddDbContext<IdentityContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("GameShopContext")));
 
-// builder.Services.AddDefaultIdentity<IdentityUser>(options => 
-//      options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<IdentityContext>();
+builder.Services.AddIdentity<AppUser, IdentityRole>()
+    .AddEntityFrameworkStores<IdentityContext>()
+    .AddDefaultTokenProviders();
+//de modificat maine
+
+//
 
 // CORS policy support
 builder.Services.AddCors(options =>
@@ -28,6 +34,7 @@ builder.Services.AddCors(options =>
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<GameService>();
+builder.Services.AddRazorPages(); 
 
 var app = builder.Build();
 
@@ -53,6 +60,7 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Games}/{action=Index}/{id?}");
 
+app.MapControllers();
 app.MapRazorPages();
 app.MapControllers();
 
