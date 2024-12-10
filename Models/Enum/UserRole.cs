@@ -1,4 +1,4 @@
-﻿namespace GameShop.Models;
+﻿namespace GameShop.Models.Enum;
 
 public enum UserRole
 {

@@ -12,7 +12,7 @@ public class Review
     public int GameId { get; set; }
     [JsonIgnore] 
     public Game? Game { get; set; }
-    public int AppUserId { get; set; }
+    public string? AppUserId { get; set; }
     [JsonIgnore] 
     public AppUser? AppUser { get; set; }
 }

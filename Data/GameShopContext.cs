@@ -1,9 +1,11 @@
 ﻿using GameShop.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace GameShop.Data;
 
-public class GameShopContext : DbContext
+public class GameShopContext : IdentityDbContext<AppUser>
 {
     public GameShopContext(DbContextOptions<GameShopContext> options) : base(options) { }
 
@@ -53,5 +55,12 @@ public class GameShopContext : DbContext
             .OnDelete(DeleteBehavior.Cascade);
         
         base.OnModelCreating(modelBuilder);
+        modelBuilder.Entity<AppUser>().ToTable("AppUsers");
+        modelBuilder.Entity<IdentityRole>().ToTable("Roles");
+        modelBuilder.Entity<IdentityUserRole<string>>().ToTable("UserRoles");
+        modelBuilder.Entity<IdentityUserClaim<string>>().ToTable("UserClaims");
+        modelBuilder.Entity<IdentityUserLogin<string>>().ToTable("UserLogins");
+        modelBuilder.Entity<IdentityRoleClaim<string>>().ToTable("RoleClaims");
+        modelBuilder.Entity<IdentityUserToken<string>>().ToTable("UserTokens");
     }
 }

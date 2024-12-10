@@ -11,15 +11,24 @@ var builder = WebApplication.CreateBuilder(args);
 // Înregistrarea serviciului pentru trimiterea emailurilor
 builder.Services.AddSingleton<IEmailSender, EmailSender>();
 
+// builder.Services.AddIdentity<AppUser, IdentityRole>()
+//     .AddEntityFrameworkStores<IdentityContext>()
+//     .AddDefaultTokenProviders();
+
 builder.Services.AddIdentity<AppUser, IdentityRole>()
-    .AddEntityFrameworkStores<IdentityContext>()
+    .AddEntityFrameworkStores<GameShopContext>()
     .AddDefaultTokenProviders();
 
-builder.Services.AddDbContext<GameShopContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("GameShopContext")));
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.User.RequireUniqueEmail = true;
+});
 
-builder.Services.AddDbContext<IdentityContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("GameShopContext")));
+builder.Services.AddDbContext<GameShopContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("GameShopContextConnection")));
+
+// builder.Services.AddDbContext<IdentityContext>(options =>
+//     options.UseNpgsql(builder.Configuration.GetConnectionString("IdentityContextConnection")));
 
 
 // CORS policy support

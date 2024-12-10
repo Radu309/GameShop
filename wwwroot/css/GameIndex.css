@@ -10,6 +10,7 @@
 
     .games-container {
         position: relative;
+        flex-direction: column;
         width: 80%;
         max-height: 80%;
         background-color: #f9f9f9;
@@ -22,9 +23,14 @@
     /* stil pt titlu */
     h1 {
         text-align: center;
-        margin-bottom: 20px;
+        align-content: center;
         color: #333;
         font-size: 2rem;
+    }
+    .create-btn{
+        padding: 5px;
+        /* doar pt customer hidden */
+        /*visibility: hidden;*/ 
     }
 
     /* stil pt header lista */

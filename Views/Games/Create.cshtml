@@ -40,6 +40,12 @@
                     <span asp-validation-for="Stock" class="text-danger"></span>
                 </div>
 
+                <!-- Image Upload -->
+                <div class="form-group">
+                    <label for="imageFiles">Upload Images (JPEG only)</label>
+                    <input type="file" id="imageFiles" name="imageFiles" class="form-control" multiple accept=".jpg, .jpeg" />
+                </div>
+                
                 <!-- Submit Button -->
                 <div class="form-group">
                     <input type="submit" value="Create" class="btn game-btn game-btn-submit"/>

@@ -10,7 +10,7 @@ public class Order
 
     [JsonIgnore] 
     public AppUser? AppUser { get; set; }
-    public int AppUserId { get; set; }
+    public string? AppUserId { get; set; }
 
 
     // Relație - O comandă poate conține mai multe produse

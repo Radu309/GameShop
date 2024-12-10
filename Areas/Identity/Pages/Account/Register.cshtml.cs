@@ -122,9 +122,7 @@ namespace GameShop.Areas.Identity.Pages.Account
             {
                 var user = CreateUser();
 
-                user.Name = Input.FullName;  
-                user.Email = Input.Email;  
-                user.Phone = Input.PhoneNumber;  
+                user.FullName = Input.FullName;  
                 user.PhoneNumber = Input.PhoneNumber;
                 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
