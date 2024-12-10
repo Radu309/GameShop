@@ -30,18 +30,60 @@
         font-weight: bold;
         color: white;
     }
-    .contact-button {
+    .btn {
         padding: 10px 20px;
         font-size: 16px;
-        background-color: #646464;
         color: #fff;
         border: none;
         border-radius: 4px;
         cursor: pointer;
     }
-    .contact-button:hover {
+    .btn:hover {
         background-color: #787878;
     }
+    .login-btn {
+        background-color: #007bff;
+        color: white;
+    }
+    .register-btn {
+        background-color: #28a745;
+        color: white;
+    }
+    .logout-btn {
+        background-color: black;
+        color: white;
+    }
+    .navbar{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    .navbar {
+        display: flex;
+        flex-direction: row;
+        justify-content: center; /* Poți ajusta la stânga sau dreapta, dacă vrei */
+        align-items: center;
+        gap: 10px; /* Spațiu între butoane */
+    }
+
+    .navbar-nav {
+        display: flex;
+        flex-direction: row; /* Afișează elementele pe orizontală */
+        align-items: center;
+        margin: 0; /* Elimină spațiile inutile */
+        padding: 0;
+        list-style: none; /* Ascunde bullet-urile */
+    }
+
+    .navbar-nav .nav-item {
+        margin: 0 5px; /* Spațiu între fiecare element */
+    }
+
+    .navbar-nav .nav-link {
+        text-decoration: none;
+        color: white;
+    }
+
 }
 @media (max-width: 768px) {
     #header {
@@ -58,7 +100,7 @@
         font-size: 2vw;
         text-align: center;
     }
-    #header .contact-button {
+    #header .btn {
         padding: 8px 16px;
         font-size: 2vw;
         width: auto;

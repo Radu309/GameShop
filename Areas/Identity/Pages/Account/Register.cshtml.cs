@@ -71,6 +71,9 @@ namespace GameShop.Areas.Identity.Pages.Account
         /// </summary>
         public class InputModel
         {
+            [Required]
+            [Display(Name = "Full Name")]
+            public string FullName { get; set; }
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
@@ -80,6 +83,10 @@ namespace GameShop.Areas.Identity.Pages.Account
             [Display(Name = "Email")]
             public string Email { get; set; }
 
+            [Required]
+            [Phone]
+            [Display(Name = "Phone")]
+            public string PhoneNumber { get; set; }
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
@@ -115,6 +122,11 @@ namespace GameShop.Areas.Identity.Pages.Account
             {
                 var user = CreateUser();
 
+                user.Name = Input.FullName;  
+                user.Email = Input.Email;  
+                user.Phone = Input.PhoneNumber;  
+                user.PhoneNumber = Input.PhoneNumber;
+                
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);

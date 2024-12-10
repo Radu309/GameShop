@@ -3,9 +3,17 @@ using GameShop.Data;
 using GameShop.Models;
 using GameShop.Services;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 // connexion to postgresql
+
+// Înregistrarea serviciului pentru trimiterea emailurilor
+builder.Services.AddSingleton<IEmailSender, EmailSender>();
+
+builder.Services.AddIdentity<AppUser, IdentityRole>()
+    .AddEntityFrameworkStores<IdentityContext>()
+    .AddDefaultTokenProviders();
 
 builder.Services.AddDbContext<GameShopContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("GameShopContext")));
@@ -13,12 +21,6 @@ builder.Services.AddDbContext<GameShopContext>(options =>
 builder.Services.AddDbContext<IdentityContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("GameShopContext")));
 
-builder.Services.AddIdentity<AppUser, IdentityRole>()
-    .AddEntityFrameworkStores<IdentityContext>()
-    .AddDefaultTokenProviders();
-//de modificat maine
-
-//
 
 // CORS policy support
 builder.Services.AddCors(options =>

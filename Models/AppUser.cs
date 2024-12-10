@@ -12,7 +12,7 @@ public class AppUser : IdentityUser
     public string? Email { get; set; }
     [Required]
     public string? Phone { get; set; }
-    public UserRole Role { get; set; }
+    public UserRole Role { get; set; } = UserRole.CUSTOMER;
 
     // Relationships
     public ICollection<Order> Orders { get; set; } = new List<Order>();
