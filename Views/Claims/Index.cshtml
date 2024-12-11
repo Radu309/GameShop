@@ -1,0 +1,47 @@
+﻿@model IEnumerable<System.Security.Claims.Claim>
+
+<section id="ClaimsList">
+    <div class="claims-list-body">
+        <div class="claims-list-container">
+            <h2>Claims</h2>
+
+            <div class="action-links">
+                <a asp-action="Create" class="btn btn-primary">Create a Claim</a>
+            </div>
+
+            <table class="claims-table">
+                <thead>
+                <tr>
+                    <th>Subject</th>
+                    <th>Issuer</th>
+                    <th>Type</th>
+                    <th>Value</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var claim in Model.OrderBy(x => x.Type))
+                {
+                    <tr>
+                        <td>@claim.Subject.Name</td>
+                        <td>@claim.Issuer</td>
+                        <td>@claim.Type</td>
+                        <td>@claim.Value</td>
+                        <td>
+                            <form asp-action="Delete" method="post" class="delete-form">
+                                <input type="hidden" name="claimValues"
+                                       value="@claim.Type;@claim.Value;@claim.Issuer" />
+                                <button type="submit" class="btn btn-danger btn-sm">
+                                    Delete
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<link rel="stylesheet" href="~/css/claims/ClaimsList.css" asp-append-version="true" />

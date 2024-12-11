@@ -8,7 +8,7 @@
 <section id="GameCRUD">
     <div class="game-form-container">
         <div class="game-form-box">
-            <form asp-action="Create">
+            <form asp-action="Create" enctype="multipart/form-data">
                 <h1>Create Game</h1>
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
@@ -42,8 +42,8 @@
 
                 <!-- Image Upload -->
                 <div class="form-group">
-                    <label for="imageFiles">Upload Images (JPEG only)</label>
-                    <input type="file" id="imageFiles" name="imageFiles" class="form-control" multiple accept=".jpg, .jpeg" />
+                    <label for="imageFiles">Upload Image:</label>
+                    <input type="file" name="imageFiles" id="imageFiles" accept="image/jpeg" multiple />
                 </div>
                 
                 <!-- Submit Button -->
@@ -61,6 +61,6 @@
 </section>
 
 @section Scripts {
-    <link rel="stylesheet" href="~/css/GameCRUD.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/games/GameCRUD.css" asp-append-version="true"/>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

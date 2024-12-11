@@ -1,0 +1,31 @@
+﻿<section id="CreateClaim">
+    <div class="create-claim-body">
+        <div class="create-claim-container">
+            <h1>Create Claim</h1>
+
+            <form method="post" class="create-claim-form">
+                <div asp-validation-summary="All" class="text-danger validation-summary"></div>
+
+                <div class="form-group">
+                    <label for="ClaimType" class="form-label">Claim Type:</label>
+                    <input name="ClaimType" class="form-input" id="ClaimType" />
+                </div>
+
+                <div class="form-group">
+                    <label for="ClaimValue" class="form-label">Claim Value:</label>
+                    <input name="ClaimValue" class="form-input" id="ClaimValue" />
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </div>
+            </form>
+
+            <div class="back-link">
+                <a asp-action="Index" class="btn btn-secondary">Back</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<link rel="stylesheet" href="~/css/claims/CreateClaims.css" asp-append-version="true" />

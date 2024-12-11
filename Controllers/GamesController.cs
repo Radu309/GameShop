@@ -42,7 +42,6 @@ public class GamesController : Controller
     public async Task<IActionResult> Create(Game game, IFormFile[] imageFiles)
     {
         if (!ModelState.IsValid) return View(game);
-
         if (imageFiles != null && imageFiles.Length > 0)
         {
             if (!await ProcessImages(game, imageFiles)) return View(game);
@@ -69,10 +68,8 @@ public class GamesController : Controller
 
         var game = await _context.Games.Include(g => g.Images).FirstOrDefaultAsync(g => g.Id == id);
         if (game == null) return NotFound();
-
         UpdateGameDetails(game, updatedGame);
         if (!await ProcessImages(game, imageFiles)) return View(game);
-
         _context.Update(game);
         await _context.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
@@ -81,11 +78,7 @@ public class GamesController : Controller
     [HttpPost]
     public async Task<IActionResult> DeleteImage(int imageId, int gameId)
     {
-        Console.WriteLine("\t \t \t HEREEEEEEEEEEEEEEEEEEEEEEEE");
-        Console.WriteLine(imageId);
-        Console.WriteLine(gameId);
         if (_context.Images.Find(imageId) is not Image image) return NotFound();
-        Console.WriteLine(image.Id);
         _context.Images.Remove(image);
         await _context.SaveChangesAsync();
         return RedirectToAction(nameof(Edit), new { id = gameId });
@@ -104,15 +97,21 @@ public class GamesController : Controller
         {
             _context.Games.Remove(game);
             await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
-        return RedirectToAction(nameof(Index));
+
+        return NotFound();
     }
 
     private bool GameExists(int id) => _context.Games.Any(e => e.Id == id);
 
     // Helpers
     private async Task<Game?> GetGameById(int? id) =>
-        id == null ? null : await _context.Games.Include(g => g.Images).FirstOrDefaultAsync(m => m.Id == id);
+        id == null ? null : await _context.Games
+            .Include(g => g.Images)
+            .Include(g => g.Reviews)
+            .ThenInclude(r => r.AppUser) // Asigură-te că includem și utilizatorul asociat recenziei
+            .FirstOrDefaultAsync(m => m.Id == id);
 
     private void UpdateGameDetails(Game existingGame, Game updatedGame)
     {
@@ -129,7 +128,6 @@ public class GamesController : Controller
             ModelState.AddModelError("imageFiles", "At least one image is required.");
             return false;
         }
-
         foreach (var file in imageFiles)
         {
             if (file.ContentType != "image/jpeg")
@@ -137,7 +135,6 @@ public class GamesController : Controller
                 ModelState.AddModelError("imageFiles", "Only JPEG images are allowed.");
                 return false;
             }
-
             using var memoryStream = new MemoryStream();
             await file.CopyToAsync(memoryStream);
             game.Images.Add(new Image { FileName = file.FileName, Data = memoryStream.ToArray() });
