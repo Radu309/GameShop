@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Authorization;
 namespace GameShop.Controllers;
 
 [Authorize(Roles = "Customer, Admin")]
-
 public class GamesController : Controller
 {
     private readonly GameShopContext _context;
@@ -20,23 +19,23 @@ public class GamesController : Controller
         _context = context;
         _gameService = gameService;
     }
-    // GET: Games
+
     [HttpGet]
     public IActionResult Index()
     {
         var games = _gameService.GetAllGames();
+        ViewBag.IsAdmin = User.IsInRole("Admin"); 
         return View(games);
     }
 
-    // GET: Games/Details/5
-    public async Task<IActionResult> Details(int? id) => 
+    public async Task<IActionResult> Details(int? id) =>
         await GetGameById(id) is Game game ? View(game) : NotFound();
 
-    // GET: Games/Create
+    [Authorize(Roles = "Admin")] // Doar Admin poate crea jocuri
     public IActionResult Create() => View();
 
-    // POST: Games/Create
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(Game game, IFormFile[] imageFiles)
     {
@@ -50,16 +49,15 @@ public class GamesController : Controller
         return RedirectToAction(nameof(Index));
     }
 
-    // GET: Games/GetImage/5
-    public IActionResult GetImage(int id) => 
+    public IActionResult GetImage(int id) =>
         _context.Images.Find(id) is Image image ? File(image.Data, "image/jpeg") : NotFound();
 
-    // GET: Games/Edit/5
-    public async Task<IActionResult> Edit(int? id) => 
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> Edit(int? id) =>
         await GetGameById(id) is Game game ? View(game) : NotFound();
 
-    // POST: Games/Edit/5
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(int id, Game updatedGame, IFormFile[] imageFiles)
     {
@@ -74,6 +72,7 @@ public class GamesController : Controller
         return RedirectToAction(nameof(Index));
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpPost]
     public async Task<IActionResult> DeleteImage(int imageId, int gameId)
     {
@@ -83,12 +82,12 @@ public class GamesController : Controller
         return RedirectToAction(nameof(Edit), new { id = gameId });
     }
 
-    // GET: Games/Delete/5
-    public async Task<IActionResult> Delete(int? id) => 
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> Delete(int? id) =>
         await GetGameById(id) is Game game ? View(game) : NotFound();
 
-    // POST: Games/Delete/5
     [HttpPost, ActionName("Delete")]
+    [Authorize(Roles = "Admin")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
@@ -98,18 +97,16 @@ public class GamesController : Controller
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
         return NotFound();
     }
 
     private bool GameExists(int id) => _context.Games.Any(e => e.Id == id);
 
-    // Helpers
     private async Task<Game?> GetGameById(int? id) =>
         id == null ? null : await _context.Games
             .Include(g => g.Images)
             .Include(g => g.Reviews)
-            .ThenInclude(r => r.AppUser) // Asigură-te că includem și utilizatorul asociat recenziei
+            .ThenInclude(r => r.AppUser)
             .FirstOrDefaultAsync(m => m.Id == id);
 
     private void UpdateGameDetails(Game existingGame, Game updatedGame)
@@ -138,7 +135,6 @@ public class GamesController : Controller
             await file.CopyToAsync(memoryStream);
             game.Images.Add(new Image { FileName = file.FileName, Data = memoryStream.ToArray() });
         }
-
         return true;
     }
 }
