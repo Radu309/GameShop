@@ -53,6 +53,10 @@
         background-color: black;
         color: white;
     }
+    .btn-admin{
+        background-color: red;
+        color: white;
+    }
     .navbar{
         display: flex;
         flex-direction: row;

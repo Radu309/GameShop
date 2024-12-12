@@ -36,6 +36,7 @@
 
     <ItemGroup>
       <_ContentIncludedByDefault Remove="Views\Admin\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Role\Index.cshtml" />
     </ItemGroup>
 
     <ItemGroup>

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GameShop.Controllers;
 
-[Authorize]
+[Authorize(Roles = "Admin")]
 public class ClaimsController : Controller
 {
     private UserManager<AppUser> userManager;

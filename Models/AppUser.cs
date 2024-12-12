@@ -9,8 +9,6 @@ public class AppUser : IdentityUser
 {
     [Required]
     public string? FullName { get; set; }
-    public UserRole Role { get; set; } = UserRole.CUSTOMER;
-    // Relationships
     public ICollection<Order> Orders { get; set; } = new List<Order>();
     public ICollection<Review> Reviews { get; set; }  = new List<Review>();
 }
