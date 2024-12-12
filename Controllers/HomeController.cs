@@ -22,9 +22,9 @@ public class HomeController : Controller
         
         if (await _userManager.IsInRoleAsync(user, "Admin"))
             return RedirectToAction("Index", "Games");
-        
         if (await _userManager.IsInRoleAsync(user, "Customer"))
-            return RedirectToAction("Index", "AdminGames");
-        return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Games");
+        
+        return RedirectToAction("Login", "Home");
     }
 }

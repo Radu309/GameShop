@@ -56,9 +56,7 @@ builder.Services.AddAuthorization(opts => {
 });
 builder.Services.ConfigureApplicationCookie(options =>
 {
-    // Redirecționare dacă utilizatorul nu este autentificat
     options.LoginPath = "/Identity/Account/Login";
-    // Redirecționare dacă utilizatorul nu are permisiuni
     options.AccessDeniedPath = "/Identity/Account/AccessDenied";
     options.ExpireTimeSpan = TimeSpan.FromMinutes(30); // Expirare sesiune
 });

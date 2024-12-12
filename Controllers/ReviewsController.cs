@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace GameShop.Controllers;
 
-[Authorize(Roles = "Customer, Admin")]
 public class ReviewsController : Controller
 {
     private readonly GameShopContext _context;
@@ -22,13 +21,16 @@ public class ReviewsController : Controller
     }
 
     // GET: Reviews
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Index()
     {
         var gameShopContext = _context.Reviews.Include(r => r.AppUser).Include(r => r.Game);
+        ViewBag.IsAdmin = User.IsInRole("Admin");
         return View(await gameShopContext.ToListAsync());
     }
 
     // GET: Reviews/Details/5
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Details(int? id)
     {
         if (id == null)
@@ -47,7 +49,7 @@ public class ReviewsController : Controller
 
         return View(review);
     }
-
+    [Authorize(Roles = "Customer, Admin")]
     // GET: Reviews/Create
     public IActionResult Create(int gameId, string appUserId)
     {
@@ -67,6 +69,7 @@ public class ReviewsController : Controller
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [Authorize(Roles = "Customer, Admin")]
     public async Task<IActionResult> Create([Bind("Id,Rating,Comment,ReviewDate,GameId,AppUserId")]
         Review review)
     {
@@ -85,6 +88,7 @@ public class ReviewsController : Controller
     }
 
     // GET: Reviews/Edit/5
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Edit(int? id)
     {
         if (id == null)
@@ -107,6 +111,7 @@ public class ReviewsController : Controller
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Edit(int id, [Bind("Id,Rating,Comment,ReviewDate,GameId,AppUserId")] Review review)
     {
         if (id != review.Id)
@@ -140,6 +145,7 @@ public class ReviewsController : Controller
     }
 
     // GET: Reviews/Delete/5
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Delete(int? id)
     {
         if (id == null)
@@ -162,6 +168,7 @@ public class ReviewsController : Controller
     // POST: Reviews/Delete/5
     [HttpPost, ActionName("Delete")]
     [ValidateAntiForgeryToken]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
         var review = await _context.Reviews.FindAsync(id);

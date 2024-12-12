@@ -37,6 +37,11 @@
     <ItemGroup>
       <_ContentIncludedByDefault Remove="Views\Admin\Index.cshtml" />
       <_ContentIncludedByDefault Remove="Views\Role\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\AdminGames\Create.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\AdminGames\Delete.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\AdminGames\Details.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\AdminGames\Edit.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\AdminGames\Index.cshtml" />
     </ItemGroup>
 
     <ItemGroup>

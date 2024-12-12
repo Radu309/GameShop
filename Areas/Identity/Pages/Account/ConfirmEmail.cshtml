@@ -4,5 +4,33 @@
     ViewData["Title"] = "Confirm email";
 }
 
-<h1>@ViewData["Title"]</h1>
-<partial name="_StatusMessage" model="Model.StatusMessage" />
+
+<section id="only-one-message">
+    <div class="container">
+        <div class="box">
+            @if (Model.StatusMessage != null)
+            {
+                <h1 class="title">
+                    <partial name="_StatusMessage" model="Model.StatusMessage"/>
+                </h1>
+                <p class="message">
+                    Your account has created with success!
+                </p>
+                <p class="message">
+                    Click here to log in with your new account:
+                    <a asp-controller="Games" asp-action="Index"> Login</a>
+                </p>
+            }
+            else
+            {
+                <h1 class="message">
+                    Something wrong! Your account can't be confirmed! 
+                </h1>
+
+            }
+
+        </div>
+    </div>
+</section>
+
+<link rel="stylesheet" href="~/css/identity/OnlyOneMessage.css" asp-append-version="true"/>
